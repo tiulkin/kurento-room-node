@@ -105,15 +105,12 @@ module.exports = class Participant {
 
         const sender = this.roomManager.getParticipantById(senderId);
         if (!sender) return console.log(`participant ${senderId} is not in room`);
-
-        this.getRemoteEndpoint(senderId).then(endpoint => {
-            this.initIceExchange(senderId, endpoint);
-            this.connectToRemote(endpoint, sender.publisher);
-            endpoint.processOffer(sdpOffer).then(sdpAnswer =>
-                this.notifyClient('gotAnswer', { senderId, sdpAnswer })
-            );
-        });
-
+        const endpoint = this.getRemoteEndpoint(senderId);
+        this.initIceExchange(senderId, endpoint);
+        this.connectToRemote(endpoint, sender.publisher);
+        endpoint.processOffer(sdpOffer).then(sdpAnswer =>
+            this.notifyClient('gotAnswer', { senderId, sdpAnswer })
+        );
         console.log(`${this.getId()} answered to ${senderId}`);
     }
 

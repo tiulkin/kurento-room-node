@@ -1,5 +1,5 @@
 {
-  "kmsUri":"ws://localhost:8888/kurento",
+  "kmsUri":"ws://95.216.18.250:8888/kurento",
 
   "secure" : {
       "key":"../keys/server.key",
